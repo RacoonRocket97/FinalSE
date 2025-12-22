@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="010-insert-sample-courses" author="developer">
+        <!-- Course 1: Java Programming -->
+        <insert tableName="courses">
+            <column name="title" value="Introduction to Java Programming"/>
+            <column name="description" value="Learn the fundamentals of Java programming, including OOP concepts, data structures, and best practices."/>
+            <column name="category" value="Programming"/>
+            <column name="duration_hours" valueNumeric="40"/>
+            <column name="start_date" value="2024-01-15 09:00:00"/>
+            <column name="end_date" value="2024-03-15 18:00:00"/>
+            <column name="teacher_id" valueNumeric="2"/> <!-- John Smith -->
+        </insert>
+
+        <!-- Course 2: Spring Boot -->
+        <insert tableName="courses">
+            <column name="title" value="Web Development with Spring Boot"/>
+            <column name="description" value="Master Spring Boot framework for building modern web applications with REST APIs and microservices."/>
+            <column name="category" value="Web Development"/>
+            <column name="duration_hours" valueNumeric="60"/>
+            <column name="start_date" value="2024-02-01 09:00:00"/>
+            <column name="end_date" value="2024-05-01 18:00:00"/>
+            <column name="teacher_id" valueNumeric="2"/> <!-- John Smith -->
+        </insert>
+
+        <!-- Course 3: Mathematics -->
+        <insert tableName="courses">
+            <column name="title" value="Advanced Calculus"/>
+            <column name="description" value="Deep dive into calculus concepts including limits, derivatives, integrals, and their applications."/>
+            <column name="category" value="Mathematics"/>
+            <column name="duration_hours" valueNumeric="50"/>
+            <column name="start_date" value="2024-01-20 10:00:00"/>
+            <column name="end_date" value="2024-04-20 17:00:00"/>
+            <column name="teacher_id" valueNumeric="3"/> <!-- Sarah Jones -->
+        </insert>
+
+        <!-- Lessons for Course 1 (Java Programming) -->
+        <insert tableName="lessons">
+            <column name="title" value="Introduction to Java"/>
+            <column name="content" value="Overview of Java programming language, its history, and setting up development environment."/>
+            <column name="order_number" valueNumeric="1"/>
+            <column name="duration_minutes" valueNumeric="90"/>
+            <column name="published_at" value="2024-01-15 09:00:00"/>
+            <column name="course_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="lessons">
+            <column name="title" value="Variables and Data Types"/>
+            <column name="content" value="Understanding primitive data types, variables, and type conversion in Java."/>
+            <column name="order_number" valueNumeric="2"/>
+            <column name="duration_minutes" valueNumeric="120"/>
+            <column name="published_at" value="2024-01-17 09:00:00"/>
+            <column name="course_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="lessons">
+            <column name="title" value="Control Flow Statements"/>
+            <column name="content" value="Learning if-else, switch, loops, and other control flow mechanisms."/>
+            <column name="order_number" valueNumeric="3"/>
+            <column name="duration_minutes" valueNumeric="120"/>
+            <column name="published_at" value="2024-01-19 09:00:00"/>
+            <column name="course_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="lessons">
+            <column name="title" value="Object-Oriented Programming Basics"/>
+            <column name="content" value="Introduction to OOP concepts: classes, objects, methods, and constructors."/>
+            <column name="order_number" valueNumeric="4"/>
+            <column name="duration_minutes" valueNumeric="150"/>
+            <column name="published_at" value="2024-01-22 09:00:00"/>
+            <column name="course_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="lessons">
+            <column name="title" value="Inheritance and Polymorphism"/>
+            <column name="content" value="Deep dive into inheritance, method overriding, and polymorphism."/>
+            <column name="order_number" valueNumeric="5"/>
+            <column name="duration_minutes" valueNumeric="150"/>
+            <column name="published_at" value="2024-01-24 09:00:00"/>
+            <column name="course_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Lessons for Course 2 (Spring Boot) -->
+        <insert tableName="lessons">
+            <column name="title" value="Introduction to Spring Framework"/>
+            <column name="content" value="Understanding Spring ecosystem, IoC, and dependency injection."/>
+            <column name="order_number" valueNumeric="1"/>
+            <column name="duration_minutes" valueNumeric="120"/>
+            <column name="published_at" value="2024-02-01 09:00:00"/>
+            <column name="course_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="lessons">
+            <column name="title" value="Spring Boot Basics"/>
+            <column name="content" value="Creating your first Spring Boot application with auto-configuration."/>
+            <column name="order_number" valueNumeric="2"/>
+            <column name="duration_minutes" valueNumeric="150"/>
+            <column name="published_at" value="2024-02-03 09:00:00"/>
+            <column name="course_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="lessons">
+            <column name="title" value="Building REST APIs"/>
+            <column name="content" value="Creating RESTful web services with Spring Boot."/>
+            <column name="order_number" valueNumeric="3"/>
+            <column name="duration_minutes" valueNumeric="180"/>
+            <column name="published_at" value="2024-02-06 09:00:00"/>
+            <column name="course_id" valueNumeric="2"/>
+        </insert>
+
+        <!-- Assignments for Java Course -->
+        <insert tableName="assignments">
+            <column name="title" value="Java Basics Quiz"/>
+            <column name="description" value="Complete a quiz covering variables, data types, and basic syntax."/>
+            <column name="due_date" value="2024-01-20 23:59:59"/>
+            <column name="max_score" valueNumeric="100"/>
+            <column name="lesson_id" valueNumeric="2"/>
+            <column name="status" value="PENDING"/>
+        </insert>
+
+        <insert tableName="assignments">
+            <column name="title" value="Control Flow Exercise"/>
+            <column name="description" value="Write a program using loops and conditional statements."/>
+            <column name="due_date" value="2024-01-25 23:59:59"/>
+            <column name="max_score" valueNumeric="100"/>
+            <column name="lesson_id" valueNumeric="3"/>
+            <column name="status" value="PENDING"/>
+        </insert>
+
+        <insert tableName="assignments">
+            <column name="title" value="OOP Project"/>
+            <column name="description" value="Create a simple object-oriented program with multiple classes."/>
+            <column name="due_date" value="2024-01-30 23:59:59"/>
+            <column name="max_score" valueNumeric="100"/>
+            <column name="lesson_id" valueNumeric="4"/>
+            <column name="status" value="PENDING"/>
+        </insert>
+
+        <!-- Sample Enrollments -->
+        <insert tableName="enrollments">
+            <column name="student_id" valueNumeric="4"/> <!-- Mike Wilson -->
+            <column name="course_id" valueNumeric="1"/> <!-- Java Programming -->
+            <column name="enrolled_at" value="2024-01-10 10:00:00"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="progress_percentage" valueNumeric="40"/>
+        </insert>
+
+        <insert tableName="enrollments">
+            <column name="student_id" valueNumeric="5"/> <!-- Emma Brown -->
+            <column name="course_id" valueNumeric="1"/> <!-- Java Programming -->
+            <column name="enrolled_at" value="2024-01-12 14:00:00"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="progress_percentage" valueNumeric="60"/>
+        </insert>
+
+        <insert tableName="enrollments">
+            <column name="student_id" valueNumeric="4"/> <!-- Mike Wilson -->
+            <column name="course_id" valueNumeric="2"/> <!-- Spring Boot -->
+            <column name="enrolled_at" value="2024-01-28 09:00:00"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="progress_percentage" valueNumeric="20"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="007-create-assignments-table" author="developer">
+        <createTable tableName="assignments">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="due_date" type="datetime"/>
+            <column name="max_score" type="int"/>
+            <column name="lesson_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_id" type="bigint"/>
+            <column name="submission_text" type="text"/>
+            <column name="submitted_at" type="datetime"/>
+            <column name="score" type="int"/>
+            <column name="feedback" type="text"/>
+            <column name="status" type="varchar(20)" defaultValue="PENDING">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="assignments"
+                baseColumnNames="lesson_id"
+                constraintName="fk_assignments_lesson"
+                referencedTableName="lessons"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="assignments"
+                baseColumnNames="student_id"
+                constraintName="fk_assignments_student"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                onDelete="SET NULL"/>
+    </changeSet>
+</databaseChangeLog>
