@@ -32,19 +32,14 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    // =========================
-    // Spring Security
-    // =========================
+    // This method is from UserDetailsService - used by Spring Security for authentication
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 
-    // =========================
-    // Current authenticated user
-    // =========================
+    // Get currently authenticated user from Security Context
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder
                 .getContext()
@@ -58,9 +53,6 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    // =========================
-    // Registration
-    // =========================
     public UserResponseDto registerUser(UserRequestDto dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new RuntimeException("Email already exists");
@@ -69,6 +61,7 @@ public class UserService implements UserDetailsService {
         User user = userMapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
+        // Assign ROLE_STUDENT by default for new registrations
         Role studentRole = roleRepository.findByRoleName("ROLE_STUDENT")
                 .orElseThrow(() -> new RuntimeException("ROLE_STUDENT not found"));
 
@@ -78,9 +71,6 @@ public class UserService implements UserDetailsService {
         return userMapper.toResponseDto(savedUser);
     }
 
-    // =========================
-    // Admin: create user
-    // =========================
     public UserResponseDto createUser(UserRequestDto dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new RuntimeException("Email already exists");
@@ -89,6 +79,7 @@ public class UserService implements UserDetailsService {
         User user = userMapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
+        // Admin can assign custom roles
         if (dto.getRoleIds() != null && !dto.getRoleIds().isEmpty()) {
             List<Role> roles = new ArrayList<>();
             for (Long roleId : dto.getRoleIds()) {
@@ -104,9 +95,6 @@ public class UserService implements UserDetailsService {
         return userMapper.toResponseDto(savedUser);
     }
 
-    // =========================
-    // Read operations
-    // =========================
     public List<UserResponseDto> getAllUsers() {
         return userMapper.toResponseDtoList(userRepository.findAll());
     }
@@ -118,9 +106,6 @@ public class UserService implements UserDetailsService {
         return userMapper.toResponseDto(user);
     }
 
-    // =========================
-    // Profile
-    // =========================
     public UserResponseDto updateProfile(UserRequestDto dto) {
         User currentUser = getCurrentUser();
 
@@ -136,9 +121,6 @@ public class UserService implements UserDetailsService {
         return userMapper.toResponseDto(userRepository.save(currentUser));
     }
 
-    // =========================
-    // Password
-    // =========================
     public boolean changePassword(PasswordChangeDto dto) {
         User currentUser = getCurrentUser();
 
@@ -146,22 +128,22 @@ public class UserService implements UserDetailsService {
             throw new RuntimeException("User not authenticated");
         }
 
+        // Check if old password matches
         if (!passwordEncoder.matches(dto.getOldPassword(), currentUser.getPassword())) {
             throw new RuntimeException("Old password is incorrect");
         }
 
+        // Check if new passwords match
         if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
             throw new RuntimeException("New passwords do not match");
         }
 
+        // Encode and save new password
         currentUser.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepository.save(currentUser);
         return true;
     }
 
-    // =========================
-    // Admin actions
-    // =========================
     public boolean blockUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() ->

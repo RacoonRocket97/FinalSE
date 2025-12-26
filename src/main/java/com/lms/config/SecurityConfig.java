@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -40,35 +39,34 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
                 .authorizeHttpRequests(auth -> auth
-                        // Public
-                        .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                        // Public endpoints - anyone can access
+                        .requestMatchers("/api/auth/register").permitAll()
 
-                        // Users
+                        // User endpoints - authenticated users
                         .requestMatchers(HttpMethod.GET, "/api/users/profile").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/users/profile").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/users/change-password").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/change-password").authenticated()
+
+                        // Admin only endpoints
                         .requestMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
 
-                        // Courses
+                        // Course endpoints
                         .requestMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/courses").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/courses/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/courses/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
 
-                        // Lessons
+                        // Lesson endpoints
                         .requestMatchers(HttpMethod.GET, "/api/lessons/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/lessons").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/lessons/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/lessons/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
 
-                        // Enrollments
+                        // Enrollment endpoints
                         .requestMatchers("/api/enrollments/**").authenticated()
 
-                        // Assignments
+                        // Assignment endpoints
                         .requestMatchers(HttpMethod.POST, "/api/assignments").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/assignments/*/submit").hasAuthority("ROLE_STUDENT")
                         .requestMatchers(HttpMethod.PUT, "/api/assignments/*/grade").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
@@ -77,7 +75,7 @@ public class SecurityConfig {
 
                         .anyRequest().authenticated()
                 )
-                .httpBasic(basic -> {});
+                .httpBasic(basic -> {}); // Simple HTTP Basic Authentication like in lectures
 
         return http.build();
     }

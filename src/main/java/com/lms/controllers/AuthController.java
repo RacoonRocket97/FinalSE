@@ -23,12 +23,6 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login() {
-
-        return ResponseEntity.ok("Login successful");
-    }
-
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@Valid @RequestBody PasswordChangeDto dto) {
         userService.changePassword(dto);
