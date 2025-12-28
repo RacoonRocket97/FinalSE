@@ -6,10 +6,10 @@
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="009-insert-sample-users" author="developer">
-        <!-- Admin User -->
+        <!-- Admin -->
         <insert tableName="users">
             <column name="email" value="admin@lms.com"/>
-            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/>
             <column name="first_name" value="Admin"/>
             <column name="last_name" value="User"/>
             <column name="birth_date" value="1985-01-15"/>
@@ -17,74 +17,72 @@
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <!-- Teacher 1 -->
+        <!-- Teachers -->
         <insert tableName="users">
-            <column name="email" value="john.smith@lms.com"/>
-            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
-            <column name="first_name" value="John"/>
-            <column name="last_name" value="Smith"/>
+            <column name="email" value="nazerke.sultan@lms.com"/>
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- admin123 -->
+            <column name="first_name" value="Nazerke"/>
+            <column name="last_name" value="Sultan"/>
             <column name="birth_date" value="1980-05-20"/>
             <column name="phone_number" value="+1234567891"/>
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <!-- Teacher 2 -->
         <insert tableName="users">
-            <column name="email" value="sarah.jones@lms.com"/>
-            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
-            <column name="first_name" value="Sarah"/>
-            <column name="last_name" value="Jones"/>
-            <column name="birth_date" value="1982-08-12"/>
+            <column name="email" value="ershat.ertagaly@lms.com"/>
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- admin123 -->
+            <column name="first_name" value="Ershat"/>
+            <column name="last_name" value="Ertagaly"/>
+            <column name="birth_date" value="1993-08-12"/>
             <column name="phone_number" value="+1234567892"/>
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <!-- Student 1 -->
+        <!-- Students-->
         <insert tableName="users">
-            <column name="email" value="mike.wilson@lms.com"/>
+            <column name="email" value="bekzat.kumarbek@lms.com"/>
             <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
-            <column name="first_name" value="Mike"/>
-            <column name="last_name" value="Wilson"/>
-            <column name="birth_date" value="2000-03-25"/>
+            <column name="first_name" value="Bekzat"/>
+            <column name="last_name" value="Kumarbek"/>
+            <column name="birth_date" value="2006-03-25"/>
             <column name="phone_number" value="+1234567893"/>
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <!-- Student 2 -->
         <insert tableName="users">
-            <column name="email" value="emma.brown@lms.com"/>
+            <column name="email" value="sultan.ersyn@lms.com"/>
             <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
-            <column name="first_name" value="Emma"/>
-            <column name="last_name" value="Brown"/>
-            <column name="birth_date" value="2001-07-18"/>
+            <column name="first_name" value="Sultan"/>
+            <column name="last_name" value="Ersyn"/>
+            <column name="birth_date" value="2006-07-18"/>
             <column name="phone_number" value="+1234567894"/>
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <!-- Assign Roles -->
+        <!-- Assigning roles -->
         <insert tableName="user_roles">
             <column name="user_id" valueNumeric="1"/>
-            <column name="role_id" valueNumeric="1"/> <!-- ADMIN -->
+            <column name="role_id" valueNumeric="1"/>
         </insert>
 
         <insert tableName="user_roles">
             <column name="user_id" valueNumeric="2"/>
-            <column name="role_id" valueNumeric="2"/> <!-- TEACHER -->
+            <column name="role_id" valueNumeric="2"/>
         </insert>
 
         <insert tableName="user_roles">
             <column name="user_id" valueNumeric="3"/>
-            <column name="role_id" valueNumeric="2"/> <!-- TEACHER -->
+            <column name="role_id" valueNumeric="2"/>
         </insert>
 
         <insert tableName="user_roles">
             <column name="user_id" valueNumeric="4"/>
-            <column name="role_id" valueNumeric="3"/> <!-- STUDENT -->
+            <column name="role_id" valueNumeric="3"/>
         </insert>
 
         <insert tableName="user_roles">
             <column name="user_id" valueNumeric="5"/>
-            <column name="role_id" valueNumeric="3"/> <!-- STUDENT -->
+            <column name="role_id" valueNumeric="3"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
