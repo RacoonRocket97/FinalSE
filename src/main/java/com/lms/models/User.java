@@ -22,7 +22,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @JsonIgnore // SECURITY: Never send password in API responses
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -38,11 +38,10 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Builder.Default // Ensures the default value applies when using User.builder()
+    @Builder.Default
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    // Security roles are usually fine to fetch eagerly
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -51,15 +50,14 @@ public class User extends BaseEntity implements UserDetails {
     )
     private List<Role> roles;
 
-    @JsonIgnore // Prevents Infinite Recursion (User -> Course -> User...)
+    @JsonIgnore
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<Course> createdCourses;
 
-    @JsonIgnore // Prevents Infinite Recursion
+    @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Enrollment> enrollments;
 
-    // --- UserDetails Implementation ---
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -78,7 +76,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        // Usually distinct from enabled, but using isActive is acceptable for simple logic
         return isActive;
     }
 

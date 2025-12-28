@@ -33,7 +33,6 @@ public class UserRequestDto {
     @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
-    // Optional: Add @Pattern if you want to enforce specific phone formats
     private String phoneNumber;
 
     private List<Long> roleIds;

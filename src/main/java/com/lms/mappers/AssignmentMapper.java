@@ -24,8 +24,15 @@ public interface AssignmentMapper {
     @Mapping(target = "lessonId", source = "lesson.id")
     @Mapping(target = "lessonTitle", source = "lesson.title")
     @Mapping(target = "studentId", source = "student.id")
-    @Mapping(target = "studentName", expression = "java(assignment.getStudent() != null ? assignment.getStudent().getFirstName() + \" \" + assignment.getStudent().getLastName() : null)")
+    @Mapping(target = "studentName", expression = "java(getStudentFullName(assignment))")
     AssignmentResponseDto toResponseDto(Assignment assignment);
 
     List<AssignmentResponseDto> toResponseDtoList(List<Assignment> assignments);
+
+    default String getStudentFullName(Assignment assignment) {
+        if (assignment.getStudent() == null) {
+            return null;
+        }
+        return assignment.getStudent().getFirstName() + " " + assignment.getStudent().getLastName();
+    }
 }

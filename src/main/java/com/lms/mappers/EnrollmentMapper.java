@@ -11,10 +11,14 @@ import java.util.List;
 public interface EnrollmentMapper {
 
     @Mapping(target = "studentId", source = "student.id")
-    @Mapping(target = "studentName", expression = "java(enrollment.getStudent().getFirstName() + \" \" + enrollment.getStudent().getLastName())")
+    @Mapping(target = "studentName", expression = "java(getStudentFullName(enrollment))")
     @Mapping(target = "courseId", source = "course.id")
     @Mapping(target = "courseTitle", source = "course.title")
     EnrollmentResponseDto toResponseDto(Enrollment enrollment);
 
     List<EnrollmentResponseDto> toResponseDtoList(List<Enrollment> enrollments);
+
+    default String getStudentFullName(Enrollment enrollment) {
+        return enrollment.getStudent().getFirstName() + " " + enrollment.getStudent().getLastName();
+    }
 }

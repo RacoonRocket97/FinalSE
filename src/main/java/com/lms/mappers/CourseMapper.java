@@ -18,9 +18,17 @@ public interface CourseMapper {
     Course toEntity(CourseRequestDto dto);
 
     @Mapping(target = "teacherId", source = "teacher.id")
-    @Mapping(target = "teacherName", expression = "java(course.getTeacher().getFirstName() + \" \" + course.getTeacher().getLastName())")
-    @Mapping(target = "totalLessons", expression = "java(course.getLessons() != null ? course.getLessons().size() : 0)")
+    @Mapping(target = "teacherName", expression = "java(getTeacherFullName(course))")
+    @Mapping(target = "totalLessons", expression = "java(getLessonsCount(course))")
     CourseResponseDto toResponseDto(Course course);
 
     List<CourseResponseDto> toResponseDtoList(List<Course> courses);
+
+    default String getTeacherFullName(Course course) {
+        return course.getTeacher().getFirstName() + " " + course.getTeacher().getLastName();
+    }
+
+    default Integer getLessonsCount(Course course) {
+        return course.getLessons() != null ? course.getLessons().size() : 0;
+    }
 }
