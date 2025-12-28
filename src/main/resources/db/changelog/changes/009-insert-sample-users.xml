@@ -9,7 +9,7 @@
         <!-- Admin User -->
         <insert tableName="users">
             <column name="email" value="admin@lms.com"/>
-            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/> <!-- password: admin123 -->
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
             <column name="first_name" value="Admin"/>
             <column name="last_name" value="User"/>
             <column name="birth_date" value="1985-01-15"/>
@@ -20,7 +20,7 @@
         <!-- Teacher 1 -->
         <insert tableName="users">
             <column name="email" value="john.smith@lms.com"/>
-            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/> <!-- password: admin123 -->
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
             <column name="first_name" value="John"/>
             <column name="last_name" value="Smith"/>
             <column name="birth_date" value="1980-05-20"/>
@@ -31,7 +31,7 @@
         <!-- Teacher 2 -->
         <insert tableName="users">
             <column name="email" value="sarah.jones@lms.com"/>
-            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/> <!-- password: admin123 -->
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
             <column name="first_name" value="Sarah"/>
             <column name="last_name" value="Jones"/>
             <column name="birth_date" value="1982-08-12"/>
@@ -42,7 +42,7 @@
         <!-- Student 1 -->
         <insert tableName="users">
             <column name="email" value="mike.wilson@lms.com"/>
-            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/> <!-- password: admin123 -->
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
             <column name="first_name" value="Mike"/>
             <column name="last_name" value="Wilson"/>
             <column name="birth_date" value="2000-03-25"/>
@@ -53,7 +53,7 @@
         <!-- Student 2 -->
         <insert tableName="users">
             <column name="email" value="emma.brown@lms.com"/>
-            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/> <!-- password: admin123 -->
+            <column name="password" value="$2a$12$jX8cuBJuGzy.s5GxqUSHZeGVrjxrX4/9Jw9LLFjce2I478X76FdlS"/> <!-- password: admin123 -->
             <column name="first_name" value="Emma"/>
             <column name="last_name" value="Brown"/>
             <column name="birth_date" value="2001-07-18"/>

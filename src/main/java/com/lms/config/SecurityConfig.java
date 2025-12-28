@@ -40,33 +40,27 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Public endpoints - anyone can access
                         .requestMatchers("/api/auth/register").permitAll()
 
-                        // User endpoints - authenticated users
                         .requestMatchers(HttpMethod.GET, "/api/users/profile").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/users/profile").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/auth/change-password").authenticated()
 
-                        // Admin only endpoints
+                        .requestMatchers("/api/users/profile").authenticated()
                         .requestMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
 
-                        // Course endpoints
                         .requestMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/courses").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/courses/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/courses/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
 
-                        // Lesson endpoints
                         .requestMatchers(HttpMethod.GET, "/api/lessons/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/lessons").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/lessons/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/lessons/**").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
 
-                        // Enrollment endpoints
                         .requestMatchers("/api/enrollments/**").authenticated()
 
-                        // Assignment endpoints
                         .requestMatchers(HttpMethod.POST, "/api/assignments").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/assignments/*/submit").hasAuthority("ROLE_STUDENT")
                         .requestMatchers(HttpMethod.PUT, "/api/assignments/*/grade").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
@@ -75,7 +69,7 @@ public class SecurityConfig {
 
                         .anyRequest().authenticated()
                 )
-                .httpBasic(basic -> {}); // Simple HTTP Basic Authentication like in lectures
+                .httpBasic(basic -> {});
 
         return http.build();
     }

@@ -3,14 +3,17 @@ package com.lms.dto.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserRequestDto {
 
     @NotBlank(message = "Email is required")
@@ -18,6 +21,7 @@ public class UserRequestDto {
     private String email;
 
     @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
     @NotBlank(message = "First name is required")
@@ -29,6 +33,7 @@ public class UserRequestDto {
     @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
+    // Optional: Add @Pattern if you want to enforce specific phone formats
     private String phoneNumber;
 
     private List<Long> roleIds;

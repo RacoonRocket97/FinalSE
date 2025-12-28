@@ -1,8 +1,8 @@
 package com.lms.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,11 +14,15 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User extends BaseEntity implements UserDetails {
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
+    @JsonIgnore // SECURITY: Never send password in API responses
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -34,9 +38,11 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Builder.Default // Ensures the default value applies when using User.builder()
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
+    // Security roles are usually fine to fetch eagerly
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -45,11 +51,15 @@ public class User extends BaseEntity implements UserDetails {
     )
     private List<Role> roles;
 
+    @JsonIgnore // Prevents Infinite Recursion (User -> Course -> User...)
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<Course> createdCourses;
 
+    @JsonIgnore // Prevents Infinite Recursion
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Enrollment> enrollments;
+
+    // --- UserDetails Implementation ---
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -68,6 +78,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
+        // Usually distinct from enabled, but using isActive is acceptable for simple logic
         return isActive;
     }
 

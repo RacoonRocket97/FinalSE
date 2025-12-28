@@ -32,21 +32,17 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    // This method is from UserDetailsService - used by Spring Security for authentication
+    // This method is from UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 
-    // Get currently authenticated user from Security Context
     public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder
-                .getContext()
-                .getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication != null &&
-                authentication.isAuthenticated() &&
+        if (authentication != null && authentication.isAuthenticated() &&
                 !(authentication instanceof AnonymousAuthenticationToken)) {
             return (User) authentication.getPrincipal();
         }
@@ -61,7 +57,6 @@ public class UserService implements UserDetailsService {
         User user = userMapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
-        // Assign ROLE_STUDENT by default for new registrations
         Role studentRole = roleRepository.findByRoleName("ROLE_STUDENT")
                 .orElseThrow(() -> new RuntimeException("ROLE_STUDENT not found"));
 
@@ -78,8 +73,6 @@ public class UserService implements UserDetailsService {
 
         User user = userMapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-
-        // Admin can assign custom roles
         if (dto.getRoleIds() != null && !dto.getRoleIds().isEmpty()) {
             List<Role> roles = new ArrayList<>();
             for (Long roleId : dto.getRoleIds()) {
@@ -127,18 +120,12 @@ public class UserService implements UserDetailsService {
         if (currentUser == null) {
             throw new RuntimeException("User not authenticated");
         }
-
-        // Check if old password matches
         if (!passwordEncoder.matches(dto.getOldPassword(), currentUser.getPassword())) {
             throw new RuntimeException("Old password is incorrect");
         }
-
-        // Check if new passwords match
         if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
             throw new RuntimeException("New passwords do not match");
         }
-
-        // Encode and save new password
         currentUser.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepository.save(currentUser);
         return true;
