@@ -1,0 +1,788 @@
+{
+  "info": {
+    "name": "LMS - Learning Management System",
+    "description": "Complete API collection for LMS with authentication and CRUD operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register New Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"email\": \"newstudent@lms.com\",\n  \"password\": \"student123\",\n  \"firstName\": \"New\",\n  \"lastName\": \"Student\",\n  \"birthDate\": \"2000-05-15\",\n  \"phoneNumber\": \"+77001234567\"\n}"
+            },
+            "url": "{{base_url}}/api/auth/register"
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"oldPassword\": \"admin123\",\n  \"newPassword\": \"newpass123\",\n  \"confirmPassword\": \"newpass123\"\n}"
+            },
+            "url": "{{base_url}}/api/auth/change-password",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. User Management",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/users/profile",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update My Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"email\": \"bekzat.kumarbek@lms.com\",\n  \"password\": \"admin123\",\n  \"firstName\": \"Bekzat\",\n  \"lastName\": \"Kumarbek\",\n  \"birthDate\": \"2006-03-25\",\n  \"phoneNumber\": \"+77771234567\"\n}"
+            },
+            "url": "{{base_url}}/api/users/profile",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/users",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User By ID (Admin)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/users/4",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create User (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"email\": \"newteacher@lms.com\",\n  \"password\": \"teacher123\",\n  \"firstName\": \"New\",\n  \"lastName\": \"Teacher\",\n  \"birthDate\": \"1985-08-20\",\n  \"phoneNumber\": \"+77019876543\",\n  \"roleIds\": [2]\n}"
+            },
+            "url": "{{base_url}}/api/users",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Block User (Admin)",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/users/5/block",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete User (Admin)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/users/6",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Courses",
+      "item": [
+        {
+          "name": "Get All Courses (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/courses"
+          }
+        },
+        {
+          "name": "Get Course By ID (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/courses/1"
+          }
+        },
+        {
+          "name": "Get Courses By Teacher (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/courses/teacher/2"
+          }
+        },
+        {
+          "name": "Get Courses By Category (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/courses/category/Programming"
+          }
+        },
+        {
+          "name": "Create Course (Teacher)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"title\": \"Advanced Web Development\",\n  \"description\": \"Master modern web technologies including React, Node.js, and databases\",\n  \"category\": \"Programming\",\n  \"durationHours\": 80,\n  \"startDate\": \"2025-02-01T09:00:00\",\n  \"endDate\": \"2025-05-31T18:00:00\"\n}"
+            },
+            "url": "{{base_url}}/api/courses",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Course (Teacher)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"title\": \"Data Analysis - Updated\",\n  \"description\": \"Learn advanced data processing techniques\",\n  \"category\": \"Programming\",\n  \"durationHours\": 45,\n  \"startDate\": \"2025-09-01T09:00:00\",\n  \"endDate\": \"2025-12-15T18:00:00\"\n}"
+            },
+            "url": "{{base_url}}/api/courses/1",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Course (Teacher)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/courses/3",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Lessons",
+      "item": [
+        {
+          "name": "Get Lessons By Course",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/lessons/course/1",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Lesson By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/lessons/1",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Lesson (Teacher)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"title\": \"Advanced Statistical Methods\",\n  \"content\": \"Deep dive into regression analysis, ANOVA, and multivariate statistics\",\n  \"orderNumber\": 6,\n  \"durationMinutes\": 120,\n  \"courseId\": 1\n}"
+            },
+            "url": "{{base_url}}/api/lessons",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Lesson (Teacher)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"title\": \"Introduction to Data Analysis - Updated\",\n  \"content\": \"Comprehensive overview of data analysis with real-world examples\",\n  \"orderNumber\": 1,\n  \"durationMinutes\": 100,\n  \"courseId\": 1\n}"
+            },
+            "url": "{{base_url}}/api/lessons/1",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Lesson (Teacher)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/lessons/5",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Enrollments",
+      "item": [
+        {
+          "name": "Enroll In Course (Student)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"courseId\": 2\n}"
+            },
+            "url": "{{base_url}}/api/enrollments",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "sultan.ersyn@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get My Enrollments (Student)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/enrollments/my",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Enrollments By Course (Teacher)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/enrollments/course/1",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Enrollment By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/enrollments/1",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Progress (Teacher)",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/enrollments/1/progress?progress=75",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Drop Enrollment (Student)",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/enrollments/3/drop",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Assignments",
+      "item": [
+        {
+          "name": "Create Assignment (Teacher)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"title\": \"Final Project\",\n  \"description\": \"Create a complete data analysis project using real-world dataset\",\n  \"dueDate\": \"2025-03-15T23:59:59\",\n  \"maxScore\": 100,\n  \"lessonId\": 4\n}"
+            },
+            "url": "{{base_url}}/api/assignments",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Assignments By Lesson",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/assignments/lesson/2",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get My Assignments (Student)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/assignments/my",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get My Pending Assignments (Student)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/assignments/my/pending",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Assignment By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/assignments/1",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Submit Assignment (Student)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"submissionText\": \"Here is my completed assignment. I analyzed the dataset using Python and created 10 different visualizations showing trends in global temperature changes over the past 50 years. Key findings: 1) Average temperature increased by 1.2°C, 2) Arctic regions show fastest warming, 3) Seasonal variations becoming more extreme.\"\n}"
+            },
+            "url": "{{base_url}}/api/assignments/1/submit",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "bekzat.kumarbek@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Grade Assignment (Teacher)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "raw": "{\n  \"score\": 92,\n  \"feedback\": \"Excellent work! Your analysis was thorough and visualizations were clear. Consider adding statistical significance tests in future work.\"\n}"
+            },
+            "url": "{{base_url}}/api/assignments/1/grade",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Assignment (Teacher)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/assignments/3",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "nazerke.sultan@lms.com"
+                },
+                {
+                  "key": "password",
+                  "value": "admin123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
